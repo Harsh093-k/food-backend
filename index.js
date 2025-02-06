@@ -13,7 +13,7 @@ require("dotenv").config()
 
 
 app.use(express.json());
-app.use(cors({ origin: 'https://gofood-sxau.onrender.com' }));
+app.use(cors({ origin: 'https://food-frontend-git-master-harsh-s-projects-6564e95e.vercel.app/' }));
 app.options('*', cors()); // Handle preflight requests
 
 mongoose.connect(process.env.Mongo_url,{useNewUrlParser: true,
