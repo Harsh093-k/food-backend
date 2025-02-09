@@ -13,7 +13,7 @@ require("dotenv").config()
 
 
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors());
 app.options('*', cors()); // Handle preflight requests
 
 mongoose.connect(process.env.Mongo_url,{useNewUrlParser: true,
