@@ -13,10 +13,10 @@ const slatRounds = 10;
 
 router.post("/CreateUser", async (req, res) => {
     try {
-        // Destructure request body
+        
         const { name,email, password, location} = req.body;
 
-        // Check if user with email already exists
+        
         const existingUser = await User.findOne({ email: email });
         if (existingUser) {
             return res
@@ -25,9 +25,9 @@ router.post("/CreateUser", async (req, res) => {
         }
 
         // Hash the password
-        const hashPassword = await bcrypt.hash(password, 10); // Adjust saltRounds to 10
+        const hashPassword = await bcrypt.hash(password, 10); 
 
-        // Create new user data
+       
         const newUserData = {
             name,
             email,
@@ -36,19 +36,19 @@ router.post("/CreateUser", async (req, res) => {
             
         };
 
-        // Save user to the database
+       
         const newUser = await User.create(newUserData);
         
 
-        // Generate token using the user data
+      
         const token = await getToken(email, newUser);
 
 
-        // Prepare response data
+        
         const userToReturn = { ...newUser.toJSON(), token };
-        delete userToReturn.password; // Remove password from the response
+        delete userToReturn.password; 
 
-        // Return success response
+       
         return res.status(200).json(userToReturn);
     } catch (error) {
         console.error("Error during registration:", error);
@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         console.log({ email, password })
-        // find the user base on the email Id
+   
         const user = await User.findOne({ email: email });
         
         if (!user) {
@@ -75,14 +75,14 @@ router.post('/login', async (req, res) => {
         }
 
 
-        // Create JWT token with user info
+       
         const token = await getToken(email, user);
 
-        // Send the token to the client
+       
         const userToReturn = { ...user.toJSON(), token };
-        delete userToReturn.password; // Remove password from the response
+        delete userToReturn.password; 
 
-        // Return success response
+      
         return res.status(200).json(userToReturn);
     } catch (error) {
         console.error("Error during registration:", error);

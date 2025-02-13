@@ -14,7 +14,7 @@ require("dotenv").config()
 
 app.use(express.json());
 app.use(cors());
-app.options('*', cors()); // Handle preflight requests
+app.options('*', cors()); 
 
 mongoose.connect(process.env.Mongo_url,{useNewUrlParser: true,
     useUnifiedTopology: true})
@@ -27,21 +27,21 @@ mongoose.connect(process.env.Mongo_url,{useNewUrlParser: true,
 passport.use(
     new JwtStrategy(
       {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Extract token from the Authorization header
-        secretOrKey:process.env.session_secret, // The secret key for verification
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey:process.env.session_secret,
       },
       async (jwtPayload, done) => {
         try {
-          // Use async/await with findById
-          const user = await User.findById(jwtPayload.userId); // This returns a Promise now
+          
+          const user = await User.findById(jwtPayload.userId); 
   
           if (!user) {
-            return done(null, false); // No user found, authentication failed
+            return done(null, false); 
           }
   
-          return done(null, user); // User found, authentication successful
+          return done(null, user); 
         } catch (error) {
-          return done(error, false); // Handle any errors
+          return done(error, false);
         }
       }
     )

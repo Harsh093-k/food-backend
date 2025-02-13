@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 
 const optionSchema = new mongoose.Schema({
-  half: { type: String, required: true }, // Price for half portion
-  full: { type: String, required: true }, // Price for full portion
+  half: { type: String, required: true },
+  full: { type: String, required: true }, 
 });
 
 const foodItemSchema = new mongoose.Schema({
